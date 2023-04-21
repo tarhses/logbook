@@ -1,0 +1,142 @@
+:root {
+  /* Fonts (https://github.com/system-fonts/modern-font-stacks) */
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+    "DejaVu Sans Mono", monospace;
+  --font-sans: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052,
+    serif;
+
+  /* Colors */
+  --color-gray-100: hsl(240 4.8% 95.9%);
+  --color-gray-200: hsl(240 5.9% 90%);
+  --color-gray-300: hsl(240 4.9% 83.9%);
+  --color-gray-400: hsl(240 5% 64.9%);
+  --color-gray-500: hsl(240 3.8% 46.1%);
+  --color-gray-600: hsl(240 5.2% 33.9%);
+  --color-gray-700: hsl(240 5.3% 26.1%);
+  --color-gray-900: hsl(240 5.9% 10%);
+  --color-green-500: hsl(142.1 70.6% 45.3%);
+  --color-green-600: hsl(142.1 76.2% 36.3%);
+  --color-red-600: hsl(0 72.2% 50.6%);
+  --color-sky-50: hsl(204 100% 97.1%);
+  --color-sky-100: hsl(204 93.8% 93.7%);
+  --color-sky-300: hsl(199.4 95.5% 73.9%);
+  --color-sky-400: hsl(198.4 93.2% 59.6%);
+  --color-sky-500: hsl(198.6 88.7% 48.4%);
+  --color-sky-600: hsl(200.4 98% 39.4%);
+  --color-sky-700: hsl(201.3 96.3% 32.2%);
+
+  --color-danger-600: var(--color-red-600);
+  --color-neutral-0: hsl(0, 0%, 100%);
+  --color-neutral-100: var(--color-gray-100);
+  --color-neutral-200: var(--color-gray-200);
+  --color-neutral-300: var(--color-gray-300);
+  --color-neutral-400: var(--color-gray-400);
+  --color-neutral-500: var(--color-gray-500);
+  --color-neutral-600: var(--color-gray-600);
+  --color-neutral-700: var(--color-gray-700);
+  --color-neutral-900: var(--color-gray-900);
+  --color-primary-50: var(--color-sky-50);
+  --color-primary-100: var(--color-sky-100);
+  --color-primary-300: var(--color-sky-300);
+  --color-primary-400: var(--color-sky-400);
+  --color-primary-500: var(--color-sky-500);
+  --color-primary-600: var(--color-sky-600);
+  --color-primary-700: var(--color-sky-700);
+  --color-success-500: var(--color-green-500);
+  --color-success-600: var(--color-green-600);
+
+  /* Misc */
+  --border-radius-medium: 0.25rem; /* 4px */
+  --button-font-size-medium: var(--font-size-small);
+  --focus-ring-color: var(--color-primary-600);
+  --focus-ring-offset: 1px;
+  --focus-ring-style: solid;
+  --focus-ring-width: 3px;
+  --font-size-large: 1.25rem; /* 20px */
+  --font-size-medium: 1rem; /* 16px */
+  --font-size-small: 0.875rem; /* 14px */
+  --font-weight-normal: 400;
+  --font-weight-semibold: 500;
+  --input-background-color-disabled: var(--color-neutral-100);
+  --input-background-color-focus: var(--input-background-color);
+  --input-background-color-hover: var(--input-background-color);
+  --input-background-color: var(--color-neutral-0);
+  --input-border-color-disabled: var(--color-neutral-300);
+  --input-border-color-focus: var(--color-primary-500);
+  --input-border-color-hover: var(--color-neutral-400);
+  --input-border-color: var(--color-neutral-300);
+  --input-border-radius-medium: var(--border-radius-medium);
+  --input-border-width: 1px;
+  --input-color-disabled: var(--color-neutral-900);
+  --input-color-focus: var(--color-neutral-700);
+  --input-color-hover: var(--color-neutral-700);
+  --input-color: var(--color-neutral-700);
+  --input-focus-ring-color: hsl(198.6 88.7% 48.4% / 40%);
+  --input-font-family: var(--font-sans);
+  --input-font-size-medium: var(--font-size-medium);
+  --input-font-weight: var(--font-weight-normal);
+  --input-height-large: 3.125rem; /* 50px */
+  --input-height-medium: 2.5rem; /* 40px */
+  --input-label-color: inherit;
+  --input-label-font-size-medium: var(--font-size-medium);
+  --input-letter-spacing: var(--letter-spacing-normal);
+  --input-placeholder-color-disabled: var(--color-neutral-600);
+  --input-placeholder-color: var(--color-neutral-500);
+  --input-required-content-color: var(--input-label-color);
+  --input-required-content-offset: -2px;
+  --input-required-content: "*";
+  --input-spacing-medium: var(--spacing-medium);
+  --letter-spacing-normal: normal;
+  --line-height-dense: 1.4;
+  --overlay-background-color: hsl(240 3.8% 46.1% / 33%);
+  --panel-background-color: var(--color-neutral-0);
+  --panel-border-color: var(--color-neutral-200);
+  --panel-border-width: 1px;
+  --shadow-x-large: 0 4px 16px hsl(240 3.8% 46.1% / 12%);
+  --spacing-2x-large: 2.25rem; /* 36px */
+  --spacing-2x-small: 0.25rem; /* 4px */
+  --spacing-3x-small: 0.125rem; /* 2px */
+  --spacing-large: 1.25rem; /* 20px */
+  --spacing-medium: 1rem; /* 16px */
+  --spacing-small: 0.75rem; /* 12px */
+  --toggle-size-medium: 1.125rem; /* 18px */
+  --transition-fast: 150ms;
+  --transition-x-fast: 50ms;
+  --z-index-dialog: 800;
+
+  --focus-ring: var(--focus-ring-style) var(--focus-ring-width)
+    var(--focus-ring-color);
+
+  /* New */
+}
+
+body {
+  box-sizing: border-box;
+  padding: 4px 8px;
+  font-family: var(--font-sans);
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--font-mono);
+}
+
+#root {
+  max-width: 800px;
+  margin: auto;
+}
