@@ -16,6 +16,9 @@ export const StationSelector: Component<{
   const [name, setName] = createSignal("")
   const [error, setError] = createSignal<Error | undefined>(undefined)
 
+  const sortedStations = () =>
+    props.stations.sort((a, b) => a.name.localeCompare(b.name))
+
   const handleCreate = (event: SubmitEvent) => {
     event.preventDefault()
     createStation({
@@ -32,7 +35,7 @@ export const StationSelector: Component<{
 
   return (
     <div>
-      <For each={props.stations}>
+      <For each={sortedStations()}>
         {(station) => (
           <Button
             variant={station.id === props.selection ? "primary" : "default"}
