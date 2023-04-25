@@ -24,7 +24,8 @@ JOIN
   AS `arrival`
   ON `arrival`.`id` = `connection`.`arrival_id`
 ORDER BY
-  `ride`.`date` DESC
+  `ride`.`date` DESC,
+  `connection`.`departure_time` DESC
 LIMIT
   ?1
 OFFSET

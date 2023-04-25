@@ -19,6 +19,7 @@ use crate::repos::{connections::CreateConnection, rides::CreateRide, stations::C
 
 const DEFAULT_DATABASE_URL: &str = "sqlite:db.sqlite3";
 const DEFAULT_ADDRESS: &str = "127.0.0.1:80";
+const DAY_AS_MILLIS: i64 = 24 * 60 * 60 * 1000;
 
 #[tokio::main]
 async fn main() {
@@ -144,9 +145,14 @@ async fn get_rides(
 async fn post_ride(
     _: Authenticated,
     State(db): State<SqlitePool>,
-    Json(ride): Json<CreateRide>,
+    Json(mut ride): Json<CreateRide>,
 ) -> impl IntoResponse {
+    ride.date = normalize_date(ride.date);
     let id = repos::rides::create(&db, ride).await;
     let ride = repos::rides::get_by_id(&db, id).await;
     (StatusCode::CREATED, Json(ride))
+}
+
+fn normalize_date(timestamp: i64) -> i64 {
+    timestamp / DAY_AS_MILLIS * DAY_AS_MILLIS
 }

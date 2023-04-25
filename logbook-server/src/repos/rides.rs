@@ -292,6 +292,85 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn get_paginated_sorts_by_descending_departure_time_given_identical_dates() {
+        let db = get_test_db().await;
+        sqlx::query!(
+            "
+            INSERT INTO station (name)
+            VALUES ('Alpha'), ('Beta');
+            INSERT INTO connection (departure_id, arrival_id, departure_time, arrival_time)
+            VALUES (1, 2, 20, 40), (1, 2, 10, 30);
+            INSERT INTO ride (connection_id, date, delay, ticket_control)
+            VALUES (2, 100, 0, FALSE), (1, 200, 0, FALSE), (1, 100, 0, FALSE);
+            "
+        )
+        .execute(&db)
+        .await
+        .unwrap();
+        let actual = get_paginated(&db, 50, 0).await;
+        let expected = vec![
+            Ride {
+                id: 2,
+                connection: Connection {
+                    id: 1,
+                    departure: Station {
+                        id: 1,
+                        name: String::from("Alpha"),
+                    },
+                    arrival: Station {
+                        id: 2,
+                        name: String::from("Beta"),
+                    },
+                    departure_time: 20,
+                    arrival_time: 40,
+                },
+                date: 200,
+                delay: 0,
+                ticket_control: false,
+            },
+            Ride {
+                id: 3,
+                connection: Connection {
+                    id: 1,
+                    departure: Station {
+                        id: 1,
+                        name: String::from("Alpha"),
+                    },
+                    arrival: Station {
+                        id: 2,
+                        name: String::from("Beta"),
+                    },
+                    departure_time: 20,
+                    arrival_time: 40,
+                },
+                date: 100,
+                delay: 0,
+                ticket_control: false,
+            },
+            Ride {
+                id: 1,
+                connection: Connection {
+                    id: 2,
+                    departure: Station {
+                        id: 1,
+                        name: String::from("Alpha"),
+                    },
+                    arrival: Station {
+                        id: 2,
+                        name: String::from("Beta"),
+                    },
+                    departure_time: 10,
+                    arrival_time: 30,
+                },
+                date: 100,
+                delay: 0,
+                ticket_control: false,
+            },
+        ];
+        assert_eq!(actual, expected);
+    }
+
+    #[tokio::test]
     async fn create_works() {
         let db = get_test_db().await;
         sqlx::query!(
