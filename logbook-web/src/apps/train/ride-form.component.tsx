@@ -42,8 +42,9 @@ export const RideForm: Component = () => {
       <Suspense>
         <p>
           Going from {connection()?.departure.name} to{" "}
-          {connection()?.arrival.name} at{" "}
-          <FormatTime timestamp={connection()?.departureTime} />.
+          {connection()?.arrival.name} from{" "}
+          <FormatTime timestamp={connection()?.departureTime} /> to{" "}
+          <FormatTime timestamp={(connection()?.arrivalTime ?? 0) + delay()} />.
         </p>
       </Suspense>
       <InputDate label="Date" timestamp={date()} onInput={setDate} />
