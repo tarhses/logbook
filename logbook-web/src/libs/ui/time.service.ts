@@ -6,10 +6,12 @@ const DURATION_PATTERN = /(\d+)([hms])/gi
 
 export function formatTime(timestamp: number): string {
   return [
-    `${toHours(timestamp) % 24}`.padStart(2, "0"),
-    `${toMinutes(timestamp) % 60}`.padStart(2, "0"),
-    `${toSeconds(timestamp) % 60}`.padStart(2, "0"),
-  ].join(":")
+    `${toHours(timestamp) % 24}`,
+    `${toMinutes(timestamp) % 60}`,
+    `${toSeconds(timestamp) % 60}`,
+  ]
+    .map((component) => component.padStart(2, "0"))
+    .join(":")
 }
 
 export function formatDuration(duration: number): string {
@@ -28,14 +30,14 @@ export function parseDuration(duration: string): number {
     .reduce((result, [amount, value]) => result + amount * value, 0)
 }
 
-function toHours(duration: number): number {
-  return Math.floor(duration / HOURS)
+function toHours(milliseconds: number): number {
+  return Math.floor(milliseconds / HOURS)
 }
 
-function toMinutes(duration: number): number {
-  return Math.floor(duration / MINUTES)
+function toMinutes(milliseconds: number): number {
+  return Math.floor(milliseconds / MINUTES)
 }
 
-function toSeconds(timestamp: number): number {
-  return Math.floor(timestamp / SECONDS)
+function toSeconds(milliseconds: number): number {
+  return Math.floor(milliseconds / SECONDS)
 }
