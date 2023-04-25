@@ -38,7 +38,7 @@
     },
     "query": "SELECT EXISTS(\n  SELECT\n    1\n  FROM\n    `token`\n  WHERE\n    `hash` = ?1\n);\n"
   },
-  "6ae4a0825feec3f4bf974cee9f1b398e80a63e3d6cb2ffd8b7ff8f649364ec2f": {
+  "62bc93499d2d4b4781a4750b71946a30576fb44738fbc1d627641b44055ab969": {
     "describe": {
       "columns": [
         {
@@ -114,7 +114,7 @@
         "Right": 2
       }
     },
-    "query": "SELECT\n  `ride`.`id` AS `ride_id!`,\n  `ride`.`date` AS `date!`,\n  `ride`.`delay` AS `delay!`,\n  `ride`.`ticket_control` AS `ticket_control!`,\n  `connection`.`id` AS `connection_id!`,\n  `connection`.`departure_time` AS `departure_time!`,\n  `connection`.`arrival_time` AS `arrival_time!`,\n  `departure`.`id` AS `departure_id!`,\n  `departure`.`name` AS `departure_name!`,\n  `arrival`.`id` AS `arrival_id!`,\n  `arrival`.`name` AS `arrival_name!`\nFROM\n  `ride`\nJOIN\n  `connection`\n  ON `connection`.`id` = `ride`.`connection_id`\nJOIN\n  `station`\n  AS `departure`\n  ON `departure`.`id` = `connection`.`departure_id`\nJOIN\n  `station`\n  AS `arrival`\n  ON `arrival`.`id` = `connection`.`arrival_id`\nORDER BY\n  `ride`.`date` DESC\nLIMIT\n  ?1\nOFFSET\n  ?2;\n"
+    "query": "SELECT\n  `ride`.`id` AS `ride_id!`,\n  `ride`.`date` AS `date!`,\n  `ride`.`delay` AS `delay!`,\n  `ride`.`ticket_control` AS `ticket_control!`,\n  `connection`.`id` AS `connection_id!`,\n  `connection`.`departure_time` AS `departure_time!`,\n  `connection`.`arrival_time` AS `arrival_time!`,\n  `departure`.`id` AS `departure_id!`,\n  `departure`.`name` AS `departure_name!`,\n  `arrival`.`id` AS `arrival_id!`,\n  `arrival`.`name` AS `arrival_name!`\nFROM\n  `ride`\nJOIN\n  `connection`\n  ON `connection`.`id` = `ride`.`connection_id`\nJOIN\n  `station`\n  AS `departure`\n  ON `departure`.`id` = `connection`.`departure_id`\nJOIN\n  `station`\n  AS `arrival`\n  ON `arrival`.`id` = `connection`.`arrival_id`\nORDER BY\n  `ride`.`date` DESC,\n  `connection`.`departure_time` DESC\nLIMIT\n  ?1\nOFFSET\n  ?2;\n"
   },
   "99b5ded73f756b712d7b2d208bbc4238c3887b8df1e5e510459ab2ff240dffaf": {
     "describe": {

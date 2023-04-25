@@ -15,3 +15,7 @@ I won't bother to document or explain how to deploy it yet but feel free to cont
 ## Changelog
 
 [Check it out.](./CHANGELOG.md)
+
+## License
+
+[Source code under MIT license, as usual.](./LICENSE.txt)
