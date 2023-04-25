@@ -17,6 +17,9 @@ export const ConnectionSelector: Component<{
   const [arrivalTime, setArrivalTime] = createSignal(NaN)
   const [error, setError] = createSignal<Error | undefined>(undefined)
 
+  const sortedConnections = () =>
+    props.connections.sort((a, b) => a.departureTime - b.departureTime)
+
   const handleCreate = (event: SubmitEvent) => {
     event.preventDefault()
     createConnection({
@@ -37,7 +40,7 @@ export const ConnectionSelector: Component<{
 
   return (
     <div>
-      <For each={props.connections}>
+      <For each={sortedConnections()}>
         {(connection) => (
           <Button
             variant={connection.id === props.selection ? "primary" : "default"}
