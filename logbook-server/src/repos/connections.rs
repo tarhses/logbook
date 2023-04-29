@@ -5,7 +5,7 @@ use crate::models::{Connection, Station};
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateConnection {
+pub struct ConnectionReq {
     departure_id: i64,
     arrival_id: i64,
     departure_time: i64,
@@ -54,7 +54,7 @@ pub async fn get_by_ends(db: &SqlitePool, departure_id: i64, arrival_id: i64) ->
         .collect()
 }
 
-pub async fn create(db: &SqlitePool, connection: CreateConnection) -> i64 {
+pub async fn create(db: &SqlitePool, connection: ConnectionReq) -> i64 {
     sqlx::query_file!(
         "sql/connections/create.sql",
         connection.departure_id,
@@ -66,6 +66,20 @@ pub async fn create(db: &SqlitePool, connection: CreateConnection) -> i64 {
     .await
     .map(|result| result.last_insert_rowid())
     .unwrap()
+}
+
+pub async fn update_by_id(db: &SqlitePool, id: i64, connection: ConnectionReq) {
+    sqlx::query_file!(
+        "sql/connections/update_by_id.sql",
+        id,
+        connection.departure_id,
+        connection.arrival_id,
+        connection.departure_time,
+        connection.arrival_time
+    )
+    .execute(db)
+    .await
+    .unwrap();
 }
 
 #[cfg(test)]
@@ -158,7 +172,7 @@ mod tests {
         .unwrap();
         let actual = create(
             &db,
-            CreateConnection {
+            ConnectionReq {
                 departure_id: 1,
                 arrival_id: 2,
                 departure_time: 10,
@@ -182,6 +196,48 @@ mod tests {
         .await
         .unwrap();
         assert_eq!(actual, expected);
+        assert_eq!(records.len(), 1);
+    }
+
+    #[tokio::test]
+    async fn update_by_id_works() {
+        let db = get_test_db().await;
+        sqlx::query!(
+            "
+            INSERT INTO station (name)
+            VALUES ('A'), ('B');
+            INSERT INTO connection (id, departure_id, arrival_id, departure_time, arrival_time)
+            VALUES (2, 1, 2, 10, 20);
+            "
+        )
+        .execute(&db)
+        .await
+        .unwrap();
+        update_by_id(
+            &db,
+            2,
+            ConnectionReq {
+                departure_id: 2,
+                arrival_id: 1,
+                departure_time: 30,
+                arrival_time: 40,
+            },
+        )
+        .await;
+        let records = sqlx::query!(
+            "
+        SELECT *
+        FROM connection
+        WHERE id = 2
+        AND departure_id = 2
+        AND arrival_id = 1
+        AND departure_time = 30
+        AND arrival_time = 40;
+        "
+        )
+        .fetch_all(&db)
+        .await
+        .unwrap();
         assert_eq!(records.len(), 1);
     }
 }

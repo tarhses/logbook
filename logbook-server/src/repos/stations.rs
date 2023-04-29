@@ -5,7 +5,7 @@ use crate::models::Station;
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateStation {
+pub struct StationReq {
     pub name: String,
 }
 
@@ -23,8 +23,15 @@ pub async fn get_by_departure(db: &SqlitePool, departure_id: i64) -> Vec<Station
         .unwrap()
 }
 
-pub async fn create(db: &SqlitePool, station: CreateStation) -> Station {
+pub async fn create(db: &SqlitePool, station: StationReq) -> Station {
     sqlx::query_file_as!(Station, "sql/stations/create.sql", station.name)
+        .fetch_one(db)
+        .await
+        .unwrap()
+}
+
+pub async fn update_by_id(db: &SqlitePool, id: i64, station: StationReq) -> Station {
+    sqlx::query_file_as!(Station, "sql/stations/update_by_id.sql", id, station.name)
         .fetch_one(db)
         .await
         .unwrap()
@@ -111,7 +118,7 @@ mod tests {
         let db = get_test_db().await;
         let actual = create(
             &db,
-            CreateStation {
+            StationReq {
                 name: String::from("Ljubljana"),
             },
         )
@@ -126,6 +133,45 @@ mod tests {
             FROM station
             WHERE id = 1
             AND name = 'Ljubljana'
+            "
+        )
+        .fetch_all(&db)
+        .await
+        .unwrap();
+        assert_eq!(actual, expected);
+        assert_eq!(records.len(), 1);
+    }
+
+    #[tokio::test]
+    async fn update_by_id_works() {
+        let db = get_test_db().await;
+        sqlx::query!(
+            "
+            INSERT INTO station (id, name)
+            VALUES (2, 'Pars');
+            "
+        )
+        .execute(&db)
+        .await
+        .unwrap();
+        let actual = update_by_id(
+            &db,
+            2,
+            StationReq {
+                name: String::from("Paris"),
+            },
+        )
+        .await;
+        let expected: Station = Station {
+            id: 2,
+            name: String::from("Paris"),
+        };
+        let records = sqlx::query!(
+            "
+            SELECT *
+            FROM station
+            WHERE id = 2
+            AND name = 'Paris';
             "
         )
         .fetch_all(&db)

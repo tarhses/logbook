@@ -5,7 +5,7 @@ use crate::models::{Connection, Ride, Station};
 
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateRide {
+pub struct RideReq {
     pub connection_id: i64,
     pub date: i64,
     pub delay: i64,
@@ -66,7 +66,7 @@ pub async fn get_paginated(db: &SqlitePool, limit: i64, offset: i64) -> Vec<Ride
         .collect()
 }
 
-pub async fn create(db: &SqlitePool, ride: CreateRide) -> i64 {
+pub async fn create(db: &SqlitePool, ride: RideReq) -> i64 {
     sqlx::query_file!(
         "sql/rides/create.sql",
         ride.connection_id,
@@ -78,6 +78,20 @@ pub async fn create(db: &SqlitePool, ride: CreateRide) -> i64 {
     .await
     .map(|result| result.last_insert_rowid())
     .unwrap()
+}
+
+pub async fn update_by_id(db: &SqlitePool, id: i64, ride: RideReq) {
+    sqlx::query_file!(
+        "sql/rides/update_by_id.sql",
+        id,
+        ride.connection_id,
+        ride.date,
+        ride.delay,
+        ride.ticket_control
+    )
+    .execute(db)
+    .await
+    .unwrap();
 }
 
 #[cfg(test)]
@@ -386,7 +400,7 @@ mod tests {
         .unwrap();
         let actual = create(
             &db,
-            CreateRide {
+            RideReq {
                 connection_id: 1,
                 date: 10,
                 delay: 100,
@@ -410,6 +424,50 @@ mod tests {
         .await
         .unwrap();
         assert_eq!(actual, expected);
+        assert_eq!(records.len(), 1);
+    }
+
+    #[tokio::test]
+    async fn update_by_id_works() {
+        let db = get_test_db().await;
+        sqlx::query!(
+            "
+            INSERT INTO station (name)
+            VALUES ('A'), ('B');
+            INSERT INTO connection (departure_id, arrival_id, departure_time, arrival_time)
+            VALUES (1, 2, 10, 20), (2, 1, 30, 40);
+            INSERT INTO ride (id, connection_id, date, delay, ticket_control)
+            VALUES (2, 1, 100, 60, FALSE);
+            "
+        )
+        .execute(&db)
+        .await
+        .unwrap();
+        update_by_id(
+            &db,
+            2,
+            RideReq {
+                connection_id: 2,
+                date: 200,
+                delay: 120,
+                ticket_control: true,
+            },
+        )
+        .await;
+        let records = sqlx::query!(
+            "
+            SELECT *
+            FROM ride
+            WHERE id = 2
+            AND connection_id = 2
+            AND date = 200
+            AND delay = 120
+            AND ticket_control = TRUE;
+            "
+        )
+        .fetch_all(&db)
+        .await
+        .unwrap();
         assert_eq!(records.len(), 1);
     }
 }
