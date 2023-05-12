@@ -5,5 +5,3 @@ export interface HttpRequest {
   headers: Headers
   body: string | undefined
 }
-
-export type HttpMiddleware = (request: HttpRequest) => void

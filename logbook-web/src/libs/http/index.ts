@@ -1,6 +1,7 @@
 export * from "./body.middleware"
 export * from "./header.middleware"
 export * from "./http-error.model"
+export * from "./http-middleware.model"
 export * from "./http-request.model"
 export * from "./http.service"
 export * from "./param.middleware"

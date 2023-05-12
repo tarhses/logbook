@@ -1,4 +1,4 @@
-import { HttpMiddleware } from "./http-request.model"
+import { HttpMiddleware } from "./http-middleware.model"
 
 export function body<T>(body: T): HttpMiddleware {
   return (request) => {

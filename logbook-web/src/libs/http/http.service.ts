@@ -1,5 +1,6 @@
 import { HttpError } from "./http-error.model"
-import { HttpMiddleware, HttpRequest } from "./http-request.model"
+import { HttpMiddleware } from "./http-middleware.model"
+import { HttpRequest } from "./http-request.model"
 
 export function get<T = void>(
   path: string,
