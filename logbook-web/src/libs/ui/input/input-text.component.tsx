@@ -4,6 +4,8 @@ import { InputBase } from "./input-base.component"
 export const InputText: Component<{
   label: string
   type?: "text" | "password"
+  required?: boolean
+  disabled?: boolean
   value?: string
   onInput?: (value: string) => void
 }> = (props) => {
@@ -11,6 +13,8 @@ export const InputText: Component<{
     <InputBase
       label={props.label}
       type={props.type}
+      required={props.required}
+      disabled={props.disabled}
       value={props.value}
       onInput={props.onInput}
     />

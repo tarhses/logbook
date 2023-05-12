@@ -1,4 +1,5 @@
 import { ErrorBox } from "@/libs/error"
+import { createForm } from "@/libs/form"
 import { Button, Dialog, InputText } from "@/libs/ui"
 import { Component, For, Show, createSignal } from "solid-js"
 import { createStation } from "./clients/station.client"
@@ -13,20 +14,20 @@ export const StationSelector: Component<{
   onShowMore?: () => void
 }> = (props) => {
   const [creatingStation, setCreatingStation] = createSignal(false)
-  const [name, setName] = createSignal("")
   const [error, setError] = createSignal<Error | undefined>(undefined)
+
+  const { values, inputs } = createForm({
+    name: { value: "", input: InputText },
+  })
 
   const sortedStations = () =>
     props.stations.sort((a, b) => a.name.localeCompare(b.name))
 
   const handleCreate = (event: SubmitEvent) => {
     event.preventDefault()
-    createStation({
-      name: name(),
-    })
+    createStation({ ...values })
       .then((station) => {
         setCreatingStation(false)
-        setName("")
         props.onCreate(station)
         props.onSelect(station.id)
       })
@@ -39,31 +40,28 @@ export const StationSelector: Component<{
         {(station) => (
           <Button
             variant={station.id === props.selection ? "primary" : "default"}
+            inlined={true}
             label={station.name}
             onClick={() => props.onSelect(station.id)}
           />
         )}
       </For>
       <Show when={props.showMore}>
-        <Button label="…" onClick={props.onShowMore} />
+        <Button inlined={true} label="…" onClick={props.onShowMore} />
       </Show>
       <Button
-        variant="success"
+        variant="primary"
+        inlined={true}
         label="New"
         onClick={() => setCreatingStation(true)}
       />
-      <Dialog
-        title="New station"
-        open={creatingStation()}
-        onClose={() => setCreatingStation(false)}
-      >
+      <Dialog open={creatingStation()}>
+        <h2>New station</h2>
         <ErrorBox error={error()} />
         <form onSubmit={handleCreate}>
-          <InputText label="Name" value={name()} onInput={setName} />
-          <div>
-            <Button label="Cancel" onClick={() => setCreatingStation(false)} />
-            <Button variant="success" type="submit" label="Create" />
-          </div>
+          <inputs.name label="Name" />
+          <Button variant="primary" type="submit" label="Create" />
+          <Button label="Cancel" onClick={() => setCreatingStation(false)} />
         </form>
       </Dialog>
     </div>

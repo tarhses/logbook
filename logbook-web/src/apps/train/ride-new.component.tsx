@@ -17,21 +17,26 @@ export const RideNew: Component = () => {
   const [departureId, setDepartureId] = createSignal<number | undefined>(
     undefined,
   )
+
   const [arrivalId, setArrivalId] = createSignal<number | undefined>(undefined)
+
   const [connectionId, setConnectionId] = createSignal<number | undefined>(
     undefined,
   )
+
   const [showMoreArrivals, setShowMoreArrivals] = createSignal(false)
 
   const [departures, { mutate: setDepartures }] = createResource(
     getAllStations,
     { initialValue: [] },
   )
+
   const [arrivals, { mutate: setArrivals }] = createResource(
     departureId,
     getStationsByDeparture,
     { initialValue: [] },
   )
+
   const [connections, { mutate: setConnections }] = createResource(
     arrivalId,
     (id) => getConnectionsByEnds(departureId()!, id),
@@ -120,12 +125,12 @@ export const RideNew: Component = () => {
       <Show when={connectionId() !== undefined}>
         <br />
         <div>
-          <Button label="Cancel" onClick={() => navigate("/train")} />
           <Button
-            variant="success"
+            variant="primary"
             label="Next"
             onClick={() => navigate(`${connectionId()}`)}
           />
+          <Button label="Cancel" onClick={() => navigate("/train")} />
         </div>
       </Show>
     </>

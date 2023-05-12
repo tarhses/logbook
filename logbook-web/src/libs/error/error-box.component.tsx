@@ -7,7 +7,8 @@ export const ErrorBox: Component<{
 }> = (props) => {
   return (
     <Show when={props.error}>
-      <Box variant="error" title="Damn">
+      <Box>
+        <h3>Damn</h3>
         <p>Something went wrong.</p>
         <p>
           <code>

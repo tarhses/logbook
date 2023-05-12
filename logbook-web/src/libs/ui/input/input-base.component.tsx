@@ -1,15 +1,15 @@
 import { Component, JSX, createEffect } from "solid-js"
-import { generateInputId } from "./id.service"
-import styles from "./input-base.component.module.css"
+import { generateInputId } from "../id.service"
 
 export const InputBase: Component<{
   label: string
   type?: string
+  required?: boolean
+  disabled?: boolean
   value?: string
   numberValue?: number
   onInput?: (value: string) => void
   onNumberInput?: (value: number) => void
-  onFocus?: () => void
 }> = (props) => {
   const id = generateInputId()
   let inputElement!: HTMLInputElement
@@ -31,14 +31,13 @@ export const InputBase: Component<{
 
   return (
     <>
-      <label for={id} class={styles.label}>
-        {props.label}
-      </label>
+      <label for={id}>{props.label}</label>
       <input
         ref={inputElement}
         id={id}
-        class={styles.control}
         type={props.type}
+        required={props.required}
+        disabled={props.disabled}
         value={props.value}
         onInput={handleInput}
       />

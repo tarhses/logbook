@@ -2,7 +2,8 @@ import { ParentComponent } from "solid-js"
 import styles from "./button.component.module.css"
 
 export const Button: ParentComponent<{
-  variant?: "default" | "primary" | "success"
+  variant?: "default" | "primary"
+  inlined?: boolean
   type?: "submit" | "reset"
   label?: string
   disabled?: boolean
@@ -10,7 +11,10 @@ export const Button: ParentComponent<{
 }> = (props) => {
   return (
     <button
-      class={`${styles.button} ${styles[props.variant ?? "default"]}`}
+      classList={{
+        secondary: props.variant !== "primary",
+        [styles.inlined]: props.inlined,
+      }}
       type={props.type ?? "button"}
       disabled={props.disabled}
       onClick={props.onClick}

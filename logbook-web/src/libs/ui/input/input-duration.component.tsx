@@ -1,17 +1,21 @@
-import { Component, createSignal } from "solid-js"
-import { InputBase } from "./input-base.component"
+import { Component } from "solid-js"
 import { formatDuration, parseDuration } from "../time.service"
+import { InputBase } from "./input-base.component"
 
 export const InputDuration: Component<{
   label: string
-  duration?: number
-  onInput?: (duration: number) => void
+  required?: boolean
+  disabled?: boolean
+  value?: number
+  onInput?: (value: number) => void
 }> = (props) => {
   return (
     <InputBase
       label={props.label}
       type="text"
-      value={formatDuration(props.duration ?? 0)}
+      required={props.required}
+      disabled={props.disabled}
+      value={formatDuration(props.value ?? 0)}
       onInput={(value) => props.onInput?.(parseDuration(value))}
     />
   )

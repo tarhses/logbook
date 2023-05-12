@@ -1,4 +1,5 @@
 import { ErrorBox } from "@/libs/error"
+import { createForm } from "@/libs/form"
 import {
   Button,
   FormatTime,
@@ -13,24 +14,25 @@ import { createRide } from "./clients/ride.client"
 
 export const RideForm: Component = () => {
   const navigate = useNavigate()
-  const params = useParams()
 
+  const params = useParams()
   const connectionId = () => parseInt(params.id)
 
   const [connection] = createResource(connectionId, getConnectionById)
-  const [date, setDate] = createSignal(Date.now())
-  const [delay, setDelay] = createSignal(0)
-  const [ticketControl, setTicketControl] = createSignal(false)
+
   const [error, setError] = createSignal<Error | undefined>(undefined)
+
+  const { values, inputs } = createForm({
+    date: { value: Date.now(), input: InputDate },
+    delay: { value: 0, input: InputDuration },
+    ticketControl: { value: false, input: InputCheckbox },
+  })
+
+  const arrivalTime = () => (connection()?.arrivalTime ?? 0) + values.delay
 
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault()
-    createRide({
-      connectionId: connectionId(),
-      date: date(),
-      delay: delay(),
-      ticketControl: ticketControl(),
-    })
+    createRide({ ...values, connectionId: connectionId() })
       .then(() => navigate("/train"))
       .catch(setError)
   }
@@ -39,25 +41,19 @@ export const RideForm: Component = () => {
     <form onSubmit={handleSubmit}>
       <h2>Create a connection</h2>
       <ErrorBox error={error() ?? connection.error} />
-      <Suspense>
+      <Suspense fallback={<p aria-busy={true} />}>
         <p>
           Going from {connection()?.departure.name} to{" "}
           {connection()?.arrival.name} from{" "}
           <FormatTime timestamp={connection()?.departureTime} /> to{" "}
-          <FormatTime timestamp={(connection()?.arrivalTime ?? 0) + delay()} />.
+          <FormatTime timestamp={arrivalTime()} />.
         </p>
       </Suspense>
-      <InputDate label="Date" timestamp={date()} onInput={setDate} />
-      <InputDuration label="Delay" duration={delay()} onInput={setDelay} />
-      <InputCheckbox
-        label="Ticket control"
-        checked={ticketControl()}
-        onInput={setTicketControl}
-      />
-      <div>
-        <Button label="Cancel" onClick={() => navigate("/train")} />
-        <Button variant="success" type="submit" label="Create" />
-      </div>
+      <inputs.date label="Date" />
+      <inputs.delay label="Delay" />
+      <inputs.ticketControl label="Ticket control" />
+      <Button variant="primary" type="submit" label="Create" />
+      <Button label="Cancel" onClick={() => navigate("/train")} />
     </form>
   )
 }

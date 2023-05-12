@@ -9,13 +9,13 @@ import {
   createSignal,
 } from "solid-js"
 import { Ride } from "./models/ride.model"
-import styles from "./ride-list.component.module.css"
 import { getRidesGroupedByDate } from "./services/ride.service"
 
 export const RideList: Component = () => {
   const navigate = useNavigate()
 
   const [page, setPage] = createSignal(0)
+
   const [ridesPerDates] = createResource(page, getRidesGroupedByDate, {
     initialValue: [],
   })
@@ -23,21 +23,24 @@ export const RideList: Component = () => {
   return (
     <ErrorHandler>
       <Button
-        variant="success"
-        label="New"
-        onClick={() => navigate("/train/new")}
-      />
-      <Button
+        inlined={true}
         label="Previous page"
         disabled={page() === 0}
         onClick={() => setPage((page) => page - 1)}
       />
       <Button
+        inlined={true}
         label="Next page"
         disabled={ridesPerDates().length === 0}
         onClick={() => setPage((page) => page + 1)}
       />
-      <Suspense>
+      <Button
+        variant="primary"
+        inlined={true}
+        label="New"
+        onClick={() => navigate("/train/new")}
+      />
+      <Suspense fallback={<div aria-busy={true} />}>
         <For each={ridesPerDates()}>
           {([date, rides]) => <RideListDate date={date} rides={rides} />}
         </For>
@@ -51,8 +54,8 @@ const RideListDate: Component<{
   rides: Ride[]
 }> = (props) => {
   return (
-    <div class={styles.group}>
-      <div class={styles.date}>
+    <div>
+      <div>
         <FormatDate timestamp={props.date} />
       </div>
       <For each={props.rides}>{(ride) => <RideListItem ride={ride} />}</For>
@@ -64,17 +67,13 @@ const RideListItem: Component<{
   ride: Ride
 }> = (props) => {
   const connection = () => props.ride.connection
+
   return (
-    <div class={styles.ride}>
-      <div class={styles.connection}>
+    <div>
+      <div>
         {connection().departure.name} – {connection().arrival.name}
       </div>
-      <div
-        classList={{
-          [styles.time]: true,
-          [styles.delayed]: props.ride.delay > 0,
-        }}
-      >
+      <div>
         <FormatTime timestamp={connection().departureTime} /> –{" "}
         <FormatTime timestamp={connection().arrivalTime + props.ride.delay} /> (
         <FormatDuration
@@ -86,7 +85,7 @@ const RideListItem: Component<{
         />
         )
       </div>
-      <div class={styles.ticket}>{props.ride.ticketControl ? "Yes" : "No"}</div>
+      <div>{props.ride.ticketControl ? "Yes" : "No"}</div>
     </div>
   )
 }

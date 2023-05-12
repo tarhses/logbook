@@ -1,4 +1,5 @@
 import { ErrorBox } from "@/libs/error"
+import { createForm } from "@/libs/form"
 import { Button, Dialog, FormatTime, InputTime } from "@/libs/ui"
 import { Component, For, createSignal } from "solid-js"
 import { createConnection } from "./clients/connection.client"
@@ -13,9 +14,12 @@ export const ConnectionSelector: Component<{
   onCreate: (connection: Connection) => void
 }> = (props) => {
   const [creatingConnection, setCreatingConnection] = createSignal(false)
-  const [departureTime, setDepartureTime] = createSignal(NaN)
-  const [arrivalTime, setArrivalTime] = createSignal(NaN)
   const [error, setError] = createSignal<Error | undefined>(undefined)
+
+  const { values, inputs } = createForm({
+    departureTime: { value: NaN, input: InputTime },
+    arrivalTime: { value: NaN, input: InputTime },
+  })
 
   const sortedConnections = () =>
     props.connections.sort((a, b) => a.departureTime - b.departureTime)
@@ -23,15 +27,12 @@ export const ConnectionSelector: Component<{
   const handleCreate = (event: SubmitEvent) => {
     event.preventDefault()
     createConnection({
+      ...values,
       departureId: props.departureId,
       arrivalId: props.arrivalId,
-      departureTime: departureTime(),
-      arrivalTime: arrivalTime(),
     })
       .then((connection) => {
         setCreatingConnection(false)
-        setDepartureTime(NaN)
-        setArrivalTime(NaN)
         props.onCreate(connection)
         props.onSelect(connection.id)
       })
@@ -44,6 +45,7 @@ export const ConnectionSelector: Component<{
         {(connection) => (
           <Button
             variant={connection.id === props.selection ? "primary" : "default"}
+            inlined={true}
             onClick={() => props.onSelect(connection.id)}
           >
             <FormatTime timestamp={connection.departureTime} />
@@ -51,34 +53,19 @@ export const ConnectionSelector: Component<{
         )}
       </For>
       <Button
-        variant="success"
+        variant="primary"
+        inlined={true}
         label="New"
         onClick={() => setCreatingConnection(true)}
       />
-      <Dialog
-        title="New connection"
-        open={creatingConnection()}
-        onClose={() => setCreatingConnection(false)}
-      >
+      <Dialog open={creatingConnection()}>
+        <h2>New connection</h2>
         <ErrorBox error={error()} />
         <form onSubmit={handleCreate}>
-          <InputTime
-            label="Departure"
-            timestamp={departureTime()}
-            onInput={setDepartureTime}
-          />
-          <InputTime
-            label="Arrival"
-            timestamp={arrivalTime()}
-            onInput={setArrivalTime}
-          />
-          <div>
-            <Button
-              label="Cancel"
-              onClick={() => setCreatingConnection(false)}
-            />
-            <Button variant="success" type="submit" label="Create" />
-          </div>
+          <inputs.departureTime label="Departure" />
+          <inputs.arrivalTime label="Arrival" />
+          <Button variant="primary" type="submit" label="Create" />
+          <Button label="Cancel" onClick={() => setCreatingConnection(false)} />
         </form>
       </Dialog>
     </div>
