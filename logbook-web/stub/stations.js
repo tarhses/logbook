@@ -15,4 +15,11 @@ export default [
       name: "Gand St-Pierre",
     }),
   },
+  {
+    when: ({ endpoint }) => /PUT \/api\/stations\/\d+/.test(endpoint),
+    then: () => ({
+      id: 3,
+      name: "Brussel-Zuid",
+    }),
+  },
 ]

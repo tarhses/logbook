@@ -16,6 +16,13 @@ export function post<T = void>(
   return perform<T>("POST", path, ...middlewares)
 }
 
+export function put<T = void>(
+  path: string,
+  ...middlewares: HttpMiddleware[]
+): Promise<T> {
+  return perform<T>("POST", path, ...middlewares)
+}
+
 async function perform<T>(
   method: string,
   path: string,

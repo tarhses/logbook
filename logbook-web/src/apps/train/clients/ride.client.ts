@@ -1,8 +1,8 @@
-import { body, get, param, post } from "@/libs/http"
+import { body, get, param, post, put } from "@/libs/http"
 import { authenticated } from "@/libs/user"
 import { Ride } from "../models/ride.model"
 
-export interface CreateRide {
+export interface RideReq {
   connectionId: number
   date: number
   delay: number
@@ -17,5 +17,8 @@ export const getPaginatedRides = (limit: number, offset: number) =>
     param("offset", offset),
   )
 
-export const createRide = (ride: CreateRide) =>
+export const createRide = (ride: RideReq) =>
   post<Ride>("/api/rides", authenticated(), body(ride))
+
+export const updateRideById = (id: number, ride: RideReq) =>
+  put<Ride>(`/api/rides/${id}`, authenticated(), body(ride))

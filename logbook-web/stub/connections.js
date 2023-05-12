@@ -38,4 +38,14 @@ export default [
       arrivalTime: 45000000,
     }),
   },
+  {
+    when: ({ endpoint }) => /PUT \/api\/connections\/\d+/.test(endpoint),
+    then: () => ({
+      id: 2,
+      departure: { id: 1, name: "Enghien" },
+      departureTime: 43200000,
+      arrival: { id: 2, name: "Namur" },
+      arrivalTime: 45000000,
+    }),
+  },
 ]

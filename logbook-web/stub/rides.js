@@ -72,4 +72,20 @@ export default [
       ticketControl: false,
     }),
   },
+  {
+    when: ({ endpoint }) => /PUT \/api\/rides\/\d+/.test(endpoint),
+    then: () => ({
+      id: 2,
+      connection: {
+        id: 2,
+        departure: { id: 2, name: "Namur" },
+        departureTime: 61920000,
+        arrival: { id: 1, name: "Enghien" },
+        arrivalTime: 62920000,
+      },
+      date: 1680480000000,
+      delay: 60000,
+      ticketControl: true,
+    }),
+  },
 ]

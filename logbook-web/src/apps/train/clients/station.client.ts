@@ -1,8 +1,8 @@
-import { body, get, param, post } from "@/libs/http"
+import { body, get, param, post, put } from "@/libs/http"
 import { authenticated } from "@/libs/user"
 import { Station } from "../models/station.model"
 
-export interface CreateStation {
+export interface StationReq {
   name: string
 }
 
@@ -12,5 +12,8 @@ export const getAllStations = () =>
 export const getStationsByDeparture = (departureId: number) =>
   get<Station[]>("/api/stations", authenticated(), param("from", departureId))
 
-export const createStation = (station: CreateStation) =>
+export const createStation = (station: StationReq) =>
   post<Station>("/api/stations", authenticated(), body(station))
+
+export const updateStationById = (id: number, station: StationReq) =>
+  put<Station>(`/api/stations/${id}`, authenticated(), body(station))
