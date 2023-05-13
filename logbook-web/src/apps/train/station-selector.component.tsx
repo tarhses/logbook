@@ -1,6 +1,6 @@
 import { ErrorBox } from "@/libs/error"
-import { createForm } from "@/libs/form"
-import { Button, Dialog, InputText } from "@/libs/ui"
+import { createForm, text } from "@/libs/form"
+import { Button, Dialog } from "@/libs/ui"
 import { Component, For, Show, createSignal } from "solid-js"
 import { createStation } from "./clients/station.client"
 import { Station } from "./models/station.model"
@@ -17,7 +17,7 @@ export const StationSelector: Component<{
   const [error, setError] = createSignal<Error | undefined>(undefined)
 
   const { values, inputs } = createForm({
-    name: { value: "", input: InputText },
+    name: text(""),
   })
 
   const sortedStations = () =>
@@ -40,18 +40,18 @@ export const StationSelector: Component<{
         {(station) => (
           <Button
             variant={station.id === props.selection ? "primary" : "default"}
-            inlined={true}
+            inlined
             label={station.name}
             onClick={() => props.onSelect(station.id)}
           />
         )}
       </For>
       <Show when={props.showMore}>
-        <Button inlined={true} label="…" onClick={props.onShowMore} />
+        <Button inlined label="…" onClick={props.onShowMore} />
       </Show>
       <Button
         variant="primary"
-        inlined={true}
+        inlined
         label="New"
         onClick={() => setCreatingStation(true)}
       />

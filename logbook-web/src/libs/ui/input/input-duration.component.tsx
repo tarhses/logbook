@@ -3,20 +3,22 @@ import { formatDuration, parseDuration } from "../time.service"
 import { InputBase } from "./input-base.component"
 
 export const InputDuration: Component<{
-  label: string
-  required?: boolean
-  disabled?: boolean
   value?: number
   onInput?: (value: number) => void
+  required?: boolean
+  disabled?: boolean
+  label?: string
+  placeholder?: string
 }> = (props) => {
   return (
     <InputBase
-      label={props.label}
       type="text"
-      required={props.required}
-      disabled={props.disabled}
       value={formatDuration(props.value ?? 0)}
       onInput={(value) => props.onInput?.(parseDuration(value))}
+      required={props.required}
+      disabled={props.disabled}
+      label={props.label}
+      placeholder={props.placeholder}
     />
   )
 }

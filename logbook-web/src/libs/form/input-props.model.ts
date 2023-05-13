@@ -1,4 +1,4 @@
-export type InputProps<T, P = {}> = P & {
+export interface InputProps<T> {
   value?: T
   onInput?: (value: T) => void
 }

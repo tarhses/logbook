@@ -23,20 +23,20 @@ export const RideList: Component = () => {
   return (
     <ErrorHandler>
       <Button
-        inlined={true}
+        inlined
         label="Previous page"
         disabled={page() === 0}
         onClick={() => setPage((page) => page - 1)}
       />
       <Button
-        inlined={true}
+        inlined
         label="Next page"
         disabled={ridesPerDates().length === 0}
         onClick={() => setPage((page) => page + 1)}
       />
       <Button
         variant="primary"
-        inlined={true}
+        inlined
         label="New"
         onClick={() => navigate("/train/new")}
       />

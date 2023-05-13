@@ -1,6 +1,6 @@
 import { ErrorBox } from "@/libs/error"
-import { createForm } from "@/libs/form"
-import { Button, Dialog, FormatTime, InputTime } from "@/libs/ui"
+import { createForm, time } from "@/libs/form"
+import { Button, Dialog, FormatTime, InputDate } from "@/libs/ui"
 import { Component, For, createSignal } from "solid-js"
 import { createConnection } from "./clients/connection.client"
 import { Connection } from "./models/connection.model"
@@ -17,8 +17,8 @@ export const ConnectionSelector: Component<{
   const [error, setError] = createSignal<Error | undefined>(undefined)
 
   const { values, inputs } = createForm({
-    departureTime: { value: NaN, input: InputTime },
-    arrivalTime: { value: NaN, input: InputTime },
+    departureTime: time(NaN),
+    arrivalTime: time(NaN),
   })
 
   const sortedConnections = () =>
@@ -45,7 +45,7 @@ export const ConnectionSelector: Component<{
         {(connection) => (
           <Button
             variant={connection.id === props.selection ? "primary" : "default"}
-            inlined={true}
+            inlined
             onClick={() => props.onSelect(connection.id)}
           >
             <FormatTime timestamp={connection.departureTime} />
@@ -54,7 +54,7 @@ export const ConnectionSelector: Component<{
       </For>
       <Button
         variant="primary"
-        inlined={true}
+        inlined
         label="New"
         onClick={() => setCreatingConnection(true)}
       />

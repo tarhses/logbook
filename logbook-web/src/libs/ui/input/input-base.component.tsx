@@ -2,17 +2,19 @@ import { Component, JSX, createEffect } from "solid-js"
 import { generateInputId } from "../id.service"
 
 export const InputBase: Component<{
-  label: string
   type?: string
-  required?: boolean
-  disabled?: boolean
   value?: string
   numberValue?: number
   onInput?: (value: string) => void
   onNumberInput?: (value: number) => void
+  required?: boolean
+  disabled?: boolean
+  label?: string
+  placeholder?: string
 }> = (props) => {
   const id = generateInputId()
-  let inputElement!: HTMLInputElement
+
+  let input!: HTMLInputElement
 
   const handleInput: JSX.EventHandlerUnion<HTMLInputElement, InputEvent> = (
     event,
@@ -25,7 +27,7 @@ export const InputBase: Component<{
   // use an effect.
   createEffect(() => {
     if (props.numberValue !== undefined && !isNaN(props.numberValue)) {
-      inputElement.valueAsNumber = props.numberValue
+      input.valueAsNumber = props.numberValue
     }
   })
 
@@ -33,13 +35,14 @@ export const InputBase: Component<{
     <>
       <label for={id}>{props.label}</label>
       <input
-        ref={inputElement}
+        ref={input}
         id={id}
         type={props.type}
-        required={props.required}
-        disabled={props.disabled}
         value={props.value}
         onInput={handleInput}
+        required={props.required}
+        disabled={props.disabled}
+        placeholder={props.placeholder}
       />
     </>
   )
