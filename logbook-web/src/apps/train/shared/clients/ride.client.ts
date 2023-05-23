@@ -9,7 +9,7 @@ export interface RideReq {
   ticketControl: boolean
 }
 
-export const getPaginatedRides = (limit: number, offset: number) =>
+export const getPaginated = (limit: number, offset: number) =>
   get<Ride[]>(
     "/api/rides",
     authenticated(),
@@ -17,8 +17,8 @@ export const getPaginatedRides = (limit: number, offset: number) =>
     param("offset", offset),
   )
 
-export const createRide = (ride: RideReq) =>
+export const create = (ride: RideReq) =>
   post<Ride>("/api/rides", authenticated(), body(ride))
 
-export const updateRideById = (id: number, ride: RideReq) =>
+export const updateById = (id: number, ride: RideReq) =>
   put<Ride>(`/api/rides/${id}`, authenticated(), body(ride))

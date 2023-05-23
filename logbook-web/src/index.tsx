@@ -1,9 +1,8 @@
 import { UserProvider } from "@/libs/user"
-import "@picocss/pico"
 import { Navigate, Route, Router, Routes } from "@solidjs/router"
 import { render } from "solid-js/web"
 import { App as Train } from "./apps/train/app.component"
-import "./index.css"
+import "./index.scss"
 
 render(
   () => (

@@ -11,14 +11,16 @@ export const UserLogin: Component = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <InputText
-        type="password"
-        label="Token"
-        value={token()}
-        onInput={setToken}
-      />
-      <Button type="submit" label="Login" />
-    </form>
+    <article>
+      <form onSubmit={handleSubmit}>
+        <InputText
+          type="password"
+          value={token()}
+          onInput={setToken}
+          label="Token"
+        />
+        <Button type="submit" variant="primary" label="Login" />
+      </form>
+    </article>
   )
 }

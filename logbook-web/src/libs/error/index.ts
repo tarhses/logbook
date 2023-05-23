@@ -1,2 +1,2 @@
-export * from "./error-box.component"
-export * from "./error-handler.component"
+export * from "./error-alert.component"
+export * from "./error-catcher.component"

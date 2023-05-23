@@ -1,5 +1,18 @@
 # Logbook - Changelog
 
+## v0.3.0 - 2023-05-23
+
+Mostly user interface improvements and code refactoring.
+
+### Web frontend
+
+- **Feature** Pico CSS is now used instead of Shoelace components.
+- **Feature** Errors and loadings are now gracefully handled.
+
+### Server
+
+- **Feature** Endpoints now support the PUT method for editing stations, rides, and connections.
+
 ## v0.2.0 - 2023-04-25
 
 Small improvements.

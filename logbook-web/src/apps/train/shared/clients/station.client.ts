@@ -6,14 +6,13 @@ export interface StationReq {
   name: string
 }
 
-export const getAllStations = () =>
-  get<Station[]>("/api/stations", authenticated())
+export const getAll = () => get<Station[]>("/api/stations", authenticated())
 
-export const getStationsByDeparture = (departureId: number) =>
+export const getByDeparture = (departureId: number) =>
   get<Station[]>("/api/stations", authenticated(), param("from", departureId))
 
-export const createStation = (station: StationReq) =>
+export const create = (station: StationReq) =>
   post<Station>("/api/stations", authenticated(), body(station))
 
-export const updateStationById = (id: number, station: StationReq) =>
+export const updateById = (id: number, station: StationReq) =>
   put<Station>(`/api/stations/${id}`, authenticated(), body(station))

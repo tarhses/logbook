@@ -9,10 +9,10 @@ export interface ConnectionReq {
   arrivalTime: number
 }
 
-export const getConnectionById = (id: number) =>
+export const getById = (id: number) =>
   get<Connection>(`/api/connections/${id}`, authenticated())
 
-export const getConnectionsByEnds = (departureId: number, arrivalId: number) =>
+export const getByEnds = (departureId: number, arrivalId: number) =>
   get<Connection[]>(
     "/api/connections",
     authenticated(),
@@ -20,8 +20,8 @@ export const getConnectionsByEnds = (departureId: number, arrivalId: number) =>
     param("to", arrivalId),
   )
 
-export const createConnection = (connection: ConnectionReq) =>
+export const create = (connection: ConnectionReq) =>
   post<Connection>("/api/connections", authenticated(), body(connection))
 
-export const updateConnectionById = (id: number, connection: ConnectionReq) =>
+export const updateById = (id: number, connection: ConnectionReq) =>
   put<Connection>(`/api/connections/${id}`, authenticated(), body(connection))

@@ -1,6 +1,7 @@
-import { InputComponent } from "./input-component.model"
+import { Component } from "solid-js"
+import { InputProps } from "./input-props.model"
 
-export interface FormControl<T, I extends InputComponent<T>> {
+export interface FormControl<T, P extends InputProps<T>> {
   value: T
-  input: I
+  input: Component<P>
 }

@@ -20,7 +20,7 @@ export function put<T = void>(
   path: string,
   ...middlewares: HttpMiddleware[]
 ): Promise<T> {
-  return perform<T>("POST", path, ...middlewares)
+  return perform<T>("PUT", path, ...middlewares)
 }
 
 async function perform<T>(

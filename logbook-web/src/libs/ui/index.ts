@@ -1,4 +1,4 @@
-export * from "./box.component"
+export * from "./alert.component"
 export * from "./button.component"
 export * from "./dialog.component"
 export * from "./format/format-date.component"

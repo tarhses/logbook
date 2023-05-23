@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
+import cssnanoPlugin from "cssnano"
 import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
 import solidPlugin from "vite-plugin-solid"
@@ -25,6 +26,13 @@ export default defineConfig({
   },
   build: {
     target: "esnext",
+    // we'll use cssnano instead:
+    cssMinify: false,
+  },
+  css: {
+    postcss: {
+      plugins: [cssnanoPlugin()],
+    },
   },
   resolve: {
     conditions: ["development", "browser"],
