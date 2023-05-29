@@ -13,6 +13,7 @@
 | web       | debt | Clean code and TODOs.                                | Done     |
 | web       | debt | Clean CSS.                                           | Done     |
 | web       | debt | Clean handling of errors and loading.                | Done     |
+| web       | feat | Transform to PWA.                                    | Done     |
 | web       | feat | Display actual delay on ride list.                   | Dropped? |
 | server    | feat | Add logging.                                         |          |
 | server    | feat | Add prometheus monitoring.                           |          |

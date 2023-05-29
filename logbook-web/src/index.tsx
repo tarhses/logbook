@@ -4,6 +4,10 @@ import { render } from "solid-js/web"
 import { App as Train } from "./apps/train/app.component"
 import "./index.scss"
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").catch(console.error)
+}
+
 render(
   () => (
     <UserProvider>

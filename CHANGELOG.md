@@ -8,6 +8,7 @@ Mostly user interface improvements and code refactoring.
 
 - **Feature** Pico CSS is now used instead of Shoelace components.
 - **Feature** Errors and loadings are now gracefully handled.
+- **Feature** Logbook is now an installable progressive web app (PWA).
 
 ### Server
 
