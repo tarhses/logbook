@@ -1,6 +1,6 @@
 import { ErrorCatcher } from "@/libs/error"
-import { Button, Dialog, FormatTime } from "@/libs/ui"
-import { A, useNavigate } from "@solidjs/router"
+import { BackButton, Button, Dialog, FormatTime } from "@/libs/ui"
+import { useNavigate } from "@solidjs/router"
 import {
   Component,
   Show,
@@ -107,7 +107,7 @@ export const ConnectionPicker: Component = () => {
   return (
     <>
       <p>
-        What route did you take? <A href="/train">Go back.</A>
+        <BackButton /> What route did you take?
       </p>
       <ErrorCatcher>
         <Suspense fallback={<section aria-busy={true}>Loading…</section>}>

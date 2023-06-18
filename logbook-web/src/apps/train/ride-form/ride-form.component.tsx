@@ -1,7 +1,7 @@
 import { ErrorAlert } from "@/libs/error"
 import { checkbox, createForm, date, duration } from "@/libs/form"
-import { Button, FormatTime } from "@/libs/ui"
-import { A, useNavigate, useParams } from "@solidjs/router"
+import { BackButton, Button, FormatTime } from "@/libs/ui"
+import { useNavigate, useParams } from "@solidjs/router"
 import { Component, Suspense, createResource, createSignal } from "solid-js"
 import * as ConnectionClient from "../shared/clients/connection.client"
 import * as RideClient from "../shared/clients/ride.client"
@@ -28,17 +28,15 @@ export const RideForm: Component = () => {
     event.preventDefault()
     setLoading(true)
     RideClient.create({ ...values, connectionId: connectionId() })
-      .then(() => navigate("/train"))
-      .catch((error: Error) => {
-        setLoading(false)
-        setError(error)
-      })
+      .then(() => navigate(-2))
+      .catch(setError)
+      .finally(() => setLoading(false))
   }
 
   return (
     <>
       <p>
-        How was your trip? <A href="/train/rides/new">Go back.</A>
+        <BackButton /> How was your trip?
       </p>
       <ErrorAlert error={error() ?? connection.error} />
       <article>

@@ -20,10 +20,8 @@ export const StationForm: Component<{
     setLoading(true)
     StationClient.create(values)
       .then(props.onSubmit)
-      .catch((error: Error) => {
-        setLoading(false)
-        setError(error)
-      })
+      .catch(setError)
+      .finally(() => setLoading(false))
   }
 
   return (

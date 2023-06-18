@@ -1,4 +1,5 @@
 export * from "./alert.component"
+export * from "./back-button.component"
 export * from "./button.component"
 export * from "./dialog.component"
 export * from "./format/format-date.component"

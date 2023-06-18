@@ -27,10 +27,8 @@ export const ConnectionForm: Component<{
       arrivalId: props.arrivalId,
     })
       .then(props.onSubmit)
-      .catch((error: Error) => {
-        setLoading(false)
-        setError(error)
-      })
+      .catch(setError)
+      .finally(() => setLoading(false))
   }
 
   return (

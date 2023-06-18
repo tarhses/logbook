@@ -1,6 +1,5 @@
 import { ErrorCatcher } from "@/libs/error"
-import { Button } from "@/libs/ui"
-import { A } from "@solidjs/router"
+import { BackButton, Button } from "@/libs/ui"
 import {
   Component,
   For,
@@ -18,7 +17,7 @@ export const RideList: Component = () => {
   return (
     <>
       <p>
-        These are all the recorded trips. <A href="/train">Go back.</A>
+        <BackButton /> These are all the recorded trips.
       </p>
       <ErrorCatcher>
         <article>
