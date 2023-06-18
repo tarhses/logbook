@@ -6,6 +6,7 @@ import {
   Show,
   Suspense,
   batch,
+  createEffect,
   createResource,
   createSignal,
 } from "solid-js"
@@ -103,6 +104,15 @@ export const ConnectionPicker: Component = () => {
       setCreatingConnection(false)
     })
   }
+
+  createEffect(() => {
+    if (
+      connectionId() !== undefined ||
+      (!departures.loading && !arrivals.loading && !connections.loading)
+    ) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })
+    }
+  })
 
   return (
     <>
