@@ -20,9 +20,14 @@ import { StationForm } from "./station-form.component"
 export const ConnectionPicker: Component = () => {
   const navigate = useNavigate()
 
-  const [departureId, setDepartureId] = createSignal(0)
-  const [arrivalId, setArrivalId] = createSignal(0)
-  const [connectionId, setConnectionId] = createSignal(0)
+  const [departureId, setDepartureId] = createSignal<number | undefined>(
+    undefined,
+  )
+  const [arrivalId, setArrivalId] = createSignal<number | undefined>(undefined)
+  const [connectionId, setConnectionId] = createSignal<number | undefined>(
+    undefined,
+  )
+
   const [creatingDeparture, setCreatingDeparture] = createSignal(false)
   const [creatingArrival, setCreatingArrival] = createSignal(false)
   const [creatingConnection, setCreatingConnection] = createSignal(false)
@@ -40,7 +45,7 @@ export const ConnectionPicker: Component = () => {
 
   const [connections, { mutate: setConnections }] = createResource(
     arrivalId,
-    (id) => ConnectionClient.getByEnds(departureId(), id),
+    (id) => ConnectionClient.getByEnds(departureId()!, id),
     { initialValue: [] },
   )
 
@@ -58,15 +63,15 @@ export const ConnectionPicker: Component = () => {
   const handleSelectDeparture = (id: number) => {
     batch(() => {
       setDepartureId(id)
-      setArrivalId(0)
-      setConnectionId(0)
+      setArrivalId(undefined)
+      setConnectionId(undefined)
     })
   }
 
   const handleSelectArrival = (id: number) => {
     batch(() => {
       setArrivalId(id)
-      setConnectionId(0)
+      setConnectionId(undefined)
     })
   }
 
@@ -174,8 +179,8 @@ export const ConnectionPicker: Component = () => {
       </Dialog>
       <Dialog open={creatingConnection()}>
         <ConnectionForm
-          departureId={departureId()}
-          arrivalId={arrivalId()}
+          departureId={departureId()!}
+          arrivalId={arrivalId()!}
           onSubmit={handleSubmitConnection}
           onCancel={() => setCreatingConnection(false)}
         />

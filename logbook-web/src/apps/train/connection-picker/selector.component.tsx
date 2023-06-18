@@ -11,7 +11,7 @@ export interface Selection {
 export const Selector: Component<{
   label: string
   selections: Selection[]
-  selection: number
+  selection?: number
   onSelect: (id: number) => void
   onCreate: () => void
   onShowMore?: () => void
