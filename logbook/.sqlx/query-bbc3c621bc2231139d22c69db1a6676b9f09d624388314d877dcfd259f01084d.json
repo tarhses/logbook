@@ -1,0 +1,26 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT\n  `station`.`id`,\n  `station`.`name`\nFROM\n  `station`\nJOIN\n  `connection`\n  ON `station`.`id` = `connection`.`arrival_id`\nWHERE\n  `connection`.`departure_id` = ?1\nGROUP BY\n  `station`.`id`;\n",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "name",
+        "ordinal": 1,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "bbc3c621bc2231139d22c69db1a6676b9f09d624388314d877dcfd259f01084d"
+}

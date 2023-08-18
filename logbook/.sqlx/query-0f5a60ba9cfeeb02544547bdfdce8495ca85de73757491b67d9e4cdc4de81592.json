@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO\n  `ride` (`connection_id`, `date`, `delay`, `ticket_control`)\nVALUES\n  (?1, ?2, ?3, ?4);\n",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "0f5a60ba9cfeeb02544547bdfdce8495ca85de73757491b67d9e4cdc4de81592"
+}

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE\n  `connection`\nSET\n  `departure_id` = ?2,\n  `arrival_id` = ?3,\n  `departure_time` = ?4,\n  `arrival_time` = ?5\nWHERE\n  `id` = ?1;\n",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "eb32f4a51e3a6edbe74f75fde3f5600a1df8875bbbcd3a52beaa83530247fe45"
+}

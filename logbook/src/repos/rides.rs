@@ -18,7 +18,7 @@ pub async fn get_by_id(db: &SqlitePool, id: i64) -> Option<Ride> {
         .await
         .unwrap()
         .map(|record| Ride {
-            id: record.ride_id,
+            id: record.id,
             connection: Connection {
                 id: record.connection_id,
                 departure: Station {
@@ -45,7 +45,7 @@ pub async fn get_paginated(db: &SqlitePool, limit: i64, offset: i64) -> Vec<Ride
         .unwrap()
         .into_iter()
         .map(|record| Ride {
-            id: record.ride_id,
+            id: record.id,
             connection: Connection {
                 id: record.connection_id,
                 departure: Station {

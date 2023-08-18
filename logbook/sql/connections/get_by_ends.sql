@@ -1,5 +1,5 @@
 SELECT
-  `connection`.`id` AS `connection_id!`,
+  `connection`.`id` AS `id!`,
   `connection`.`departure_time`,
   `connection`.`arrival_time`,
   `departure`.`id` AS `departure_id`,

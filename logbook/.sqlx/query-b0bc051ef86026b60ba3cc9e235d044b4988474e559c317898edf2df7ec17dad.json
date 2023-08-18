@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE\n  `ride`\nSET\n  `connection_id` = ?2,\n  `date` = ?3,\n  `delay` = ?4,\n  `ticket_control` = ?5\nWHERE\n  `id` = ?1;\n",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "b0bc051ef86026b60ba3cc9e235d044b4988474e559c317898edf2df7ec17dad"
+}

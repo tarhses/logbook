@@ -1,0 +1,56 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT\n  `connection`.`id`,\n  `connection`.`departure_time`,\n  `connection`.`arrival_time`,\n  `departure`.`id` AS `departure_id`,\n  `departure`.`name` AS `departure_name`,\n  `arrival`.`id` AS `arrival_id`,\n  `arrival`.`name` AS `arrival_name`\nFROM\n  `connection`\nJOIN\n  `station`\n  AS `departure`\n  ON `departure`.`id` = `connection`.`departure_id`\nJOIN\n  `station`\n  AS `arrival`\n  ON `arrival`.`id` = `connection`.`arrival_id`\nWHERE\n  `connection`.`id` = ?1;\n",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "departure_time",
+        "ordinal": 1,
+        "type_info": "Int64"
+      },
+      {
+        "name": "arrival_time",
+        "ordinal": 2,
+        "type_info": "Int64"
+      },
+      {
+        "name": "departure_id",
+        "ordinal": 3,
+        "type_info": "Int64"
+      },
+      {
+        "name": "departure_name",
+        "ordinal": 4,
+        "type_info": "Text"
+      },
+      {
+        "name": "arrival_id",
+        "ordinal": 5,
+        "type_info": "Int64"
+      },
+      {
+        "name": "arrival_name",
+        "ordinal": 6,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "2523479d7023791dc3c337c451a15421dec47620b982759534b1c1e121895d48"
+}

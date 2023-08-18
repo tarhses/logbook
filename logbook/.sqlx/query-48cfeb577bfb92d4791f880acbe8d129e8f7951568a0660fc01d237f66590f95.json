@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT EXISTS(\n  SELECT\n    1\n  FROM\n    `token`\n  WHERE\n    `hash` = ?1\n);\n",
+  "describe": {
+    "columns": [
+      {
+        "name": "EXISTS(\n  SELECT\n    1\n  FROM\n    `token`\n  WHERE\n    `hash` = ?1\n)",
+        "ordinal": 0,
+        "type_info": "Int"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "48cfeb577bfb92d4791f880acbe8d129e8f7951568a0660fc01d237f66590f95"
+}

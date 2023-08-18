@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO\n  `connection` (`departure_id`, `arrival_id`, `departure_time`, `arrival_time`)\nVALUES\n  (?1, ?2, ?3, ?4);\n",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "282ab92aeaf8f65b9242f8d31c7794f40c3c25061af4a9f52a2673a562a2009b"
+}

@@ -1,5 +1,5 @@
 SELECT
-  `ride`.`id` AS `ride_id`,
+  `ride`.`id`,
   `ride`.`date`,
   `ride`.`delay`,
   `ride`.`ticket_control`,
@@ -23,5 +23,10 @@ JOIN
   `station`
   AS `arrival`
   ON `arrival`.`id` = `connection`.`arrival_id`
-WHERE
-  `ride`.`id` = ?1;
+ORDER BY
+  `ride`.`date` DESC,
+  `connection`.`departure_time` DESC
+LIMIT
+  ?1
+OFFSET
+  ?2;

@@ -18,7 +18,7 @@ pub async fn get_by_id(db: &SqlitePool, id: i64) -> Option<Connection> {
         .await
         .unwrap()
         .map(|record| Connection {
-            id: record.connection_id,
+            id: record.id,
             departure: Station {
                 id: record.departure_id,
                 name: record.departure_name,
@@ -39,7 +39,7 @@ pub async fn get_by_ends(db: &SqlitePool, departure_id: i64, arrival_id: i64) ->
         .unwrap()
         .into_iter()
         .map(|record| Connection {
-            id: record.connection_id,
+            id: record.id,
             departure: Station {
                 id: record.departure_id,
                 name: record.departure_name,

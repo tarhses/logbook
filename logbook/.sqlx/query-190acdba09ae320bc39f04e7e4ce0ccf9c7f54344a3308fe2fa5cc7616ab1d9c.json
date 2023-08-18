@@ -1,0 +1,80 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT\n  `ride`.`id`,\n  `ride`.`date`,\n  `ride`.`delay`,\n  `ride`.`ticket_control`,\n  `connection`.`id` AS `connection_id`,\n  `connection`.`departure_time`,\n  `connection`.`arrival_time`,\n  `departure`.`id` AS `departure_id`,\n  `departure`.`name` AS `departure_name`,\n  `arrival`.`id` AS `arrival_id`,\n  `arrival`.`name` AS `arrival_name`\nFROM\n  `ride`\nJOIN\n  `connection`\n  ON `connection`.`id` = `ride`.`connection_id`\nJOIN\n  `station`\n  AS `departure`\n  ON `departure`.`id` = `connection`.`departure_id`\nJOIN\n  `station`\n  AS `arrival`\n  ON `arrival`.`id` = `connection`.`arrival_id`\nORDER BY\n  `ride`.`date` DESC,\n  `connection`.`departure_time` DESC\nLIMIT\n  ?1\nOFFSET\n  ?2;\n",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "date",
+        "ordinal": 1,
+        "type_info": "Int64"
+      },
+      {
+        "name": "delay",
+        "ordinal": 2,
+        "type_info": "Int64"
+      },
+      {
+        "name": "ticket_control",
+        "ordinal": 3,
+        "type_info": "Bool"
+      },
+      {
+        "name": "connection_id",
+        "ordinal": 4,
+        "type_info": "Int64"
+      },
+      {
+        "name": "departure_time",
+        "ordinal": 5,
+        "type_info": "Int64"
+      },
+      {
+        "name": "arrival_time",
+        "ordinal": 6,
+        "type_info": "Int64"
+      },
+      {
+        "name": "departure_id",
+        "ordinal": 7,
+        "type_info": "Int64"
+      },
+      {
+        "name": "departure_name",
+        "ordinal": 8,
+        "type_info": "Text"
+      },
+      {
+        "name": "arrival_id",
+        "ordinal": 9,
+        "type_info": "Int64"
+      },
+      {
+        "name": "arrival_name",
+        "ordinal": 10,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "190acdba09ae320bc39f04e7e4ce0ccf9c7f54344a3308fe2fa5cc7616ab1d9c"
+}

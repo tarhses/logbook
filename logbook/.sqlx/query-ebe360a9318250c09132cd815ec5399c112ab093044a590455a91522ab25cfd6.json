@@ -1,0 +1,26 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE\n  `station`\nSET\n  `name` = ?2\nWHERE\n  `id` = ?1\nRETURNING\n  `id` AS `id!`,\n  `name`;\n",
+  "describe": {
+    "columns": [
+      {
+        "name": "id!",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "name",
+        "ordinal": 1,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      true,
+      false
+    ]
+  },
+  "hash": "ebe360a9318250c09132cd815ec5399c112ab093044a590455a91522ab25cfd6"
+}

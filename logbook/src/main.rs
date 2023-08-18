@@ -11,7 +11,7 @@ mod routers;
 const DEFAULT_DATABASE_URL: &str = "sqlite:db.sqlite3";
 const DEFAULT_ADDRESS: &str = "127.0.0.1:80";
 
-#[tokio::main]
+#[tokio::main(flavor = "current_thread")]
 async fn main() {
     dotenvy::dotenv().ok();
 

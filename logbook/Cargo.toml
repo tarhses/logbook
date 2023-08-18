@@ -1,0 +1,15 @@
+[package]
+name = "logbook"
+version = "0.3.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = "0.6.20"
+base64ct = { version = "1.6.0", features = [ "alloc" ] }
+dotenvy = "0.15.7"
+serde = { version = "1.0.183", features = [ "derive" ] }
+sha2 = "0.10.7"
+sqlx = { version = "0.7.1", features = [ "runtime-tokio", "sqlite" ] }
+tokio = { version = "1.32.0", features = [ "rt", "macros" ] }
