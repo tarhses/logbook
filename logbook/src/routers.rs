@@ -1,6 +1,9 @@
 use serde::Deserialize;
 
 pub mod connections;
+pub mod games;
+pub mod platforms;
+pub mod playthroughs;
 pub mod rides;
 pub mod stations;
 

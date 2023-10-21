@@ -1,6 +1,7 @@
 import { UserProvider } from "@/libs/user"
 import { Navigate, Route, Router, Routes } from "@solidjs/router"
 import { render } from "solid-js/web"
+import { App as Game } from "./apps/game/app.component"
 import { App as Train } from "./apps/train/app.component"
 import "./index.scss"
 
@@ -13,6 +14,7 @@ render(
     <UserProvider>
       <Router>
         <Routes>
+          <Game base="/game" />
           <Train base="/train" />
           <Route path="*" element={<Navigate href="/train" />} />
         </Routes>

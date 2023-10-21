@@ -8,14 +8,8 @@ SELECT
   `arrival`.`name` AS `arrival_name`
 FROM
   `connection`
-JOIN
-  `station`
-  AS `departure`
-  ON `departure`.`id` = ?1
-JOIN
-  `station`
-  AS `arrival`
-  ON `arrival`.`id` = ?2
+  JOIN `station` AS `departure` ON `departure`.`id` = ?1
+  JOIN `station` AS `arrival` ON `arrival`.`id` = ?2
 WHERE
   `connection`.`departure_id` = ?1
   AND `connection`.`arrival_id` = ?2;

@@ -11,7 +11,8 @@ CREATE TABLE `connection` (
   `arrival_time` INTEGER NOT NULL
 
   CHECK (`departure_id` <> `arrival_id`),
-  CHECK (`departure_time` <> `arrival_time`),
+  CHECK (`departure_time` BETWEEN 0 AND 86399999),
+  CHECK (`arrival_time` BETWEEN 0 AND 86399999),
   UNIQUE (`departure_id`, `arrival_id`, `departure_time`, `arrival_time`)
 );
 
@@ -21,9 +22,7 @@ CREATE TABLE `ride` (
   `date` INTEGER NOT NULL,
   `delay` INTEGER NOT NULL,
   `ticket_control` BOOLEAN NOT NULL
-);
 
-CREATE TABLE `token` (
-  `hash` BLOB PRIMARY KEY,
-  `name` TEXT NOT NULL
+  CHECK (`date` % 86400000 = 0),
+  CHECK (`delay` >= 0)
 );

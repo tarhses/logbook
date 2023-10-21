@@ -1,6 +1,6 @@
 SELECT EXISTS(
   SELECT
-    1
+    TRUE
   FROM
     `token`
   WHERE

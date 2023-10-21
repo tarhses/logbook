@@ -51,15 +51,15 @@ export const ConnectionPicker: Component = () => {
   )
 
   const sortedDepartures = () =>
-    departures().sort((a, b) => a.name.localeCompare(b.name))
+    departures().toSorted((a, b) => a.name.localeCompare(b.name))
 
   const sortedArrivals = () =>
     arrivals()
       .filter((departure) => departure.id !== departureId())
-      .sort((a, b) => a.name.localeCompare(b.name))
+      .toSorted((a, b) => a.name.localeCompare(b.name))
 
   const sortedConnections = () =>
-    connections().sort((a, b) => a.departureTime - b.departureTime)
+    connections().toSorted((a, b) => a.departureTime - b.departureTime)
 
   const handleSelectDeparture = (id: number) => {
     batch(() => {

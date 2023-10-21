@@ -8,6 +8,9 @@ dependencies:
   '@picocss/pico':
     specifier: ^1.5.10
     version: 1.5.10
+  '@solid-primitives/scheduled':
+    specifier: ^1.4.1
+    version: 1.4.1(solid-js@1.7.11)
   '@solidjs/router':
     specifier: ^0.8.3
     version: 0.8.3(solid-js@1.7.11)
@@ -630,6 +633,14 @@ packages:
   /@sinclair/typebox@0.27.8:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: true
+
+  /@solid-primitives/scheduled@1.4.1(solid-js@1.7.11):
+    resolution: {integrity: sha512-OLcNXwYpX7HUOEqNPcmR31dkyI1E2imkMDBRlqsGT0ZhJV1L2g0TEREpo4nm/kUhh8LVQzkfnxS+GONx9kh90A==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.7.11
+    dev: false
 
   /@solidjs/router@0.8.3(solid-js@1.7.11):
     resolution: {integrity: sha512-oJuqQo10rVTiQYhe1qXIG1NyZIZ2YOwHnlLc8Xx+g/iJhFCJo1saLOIrD/Dkh2fpIaIny5ZMkz1cYYqoTYGJbg==}

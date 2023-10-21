@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@picocss/pico": "^1.5.10",
+    "@solid-primitives/scheduled": "^1.4.1",
     "@solidjs/router": "^0.8.3",
     "solid-js": "^1.7.11"
   },
