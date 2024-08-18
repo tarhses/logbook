@@ -58,6 +58,11 @@ async function perform<T>(
     throw new HttpError(response.status, message || response.statusText)
   }
 
+  if (response.status === 204) {
+    // 204 No Content
+    return undefined as T
+  }
+
   const body = await response.json()
   return body as T
 }
