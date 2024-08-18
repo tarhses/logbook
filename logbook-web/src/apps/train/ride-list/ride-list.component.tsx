@@ -12,7 +12,10 @@ import * as RideListService from "./ride-list.service"
 
 export const RideList: Component = () => {
   const [page, setPage] = createSignal(0)
-  const [groups] = createResource(page, RideListService.getDateGroupsByPage)
+  const [groups, { refetch: refetchGroups }] = createResource(
+    page,
+    RideListService.getDateGroupsByPage,
+  )
 
   return (
     <>
@@ -39,7 +42,9 @@ export const RideList: Component = () => {
           </header>
           <Suspense fallback={<div aria-busy={true}>Loading…</div>}>
             <For each={groups.latest}>
-              {([date, rides]) => <RideDate date={date} rides={rides} />}
+              {([date, rides]) => (
+                <RideDate date={date} rides={rides} onDelete={refetchGroups} />
+              )}
             </For>
           </Suspense>
         </article>

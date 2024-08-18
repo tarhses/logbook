@@ -23,6 +23,13 @@ export function put<T = void>(
   return perform<T>("PUT", path, ...middlewares)
 }
 
+export function delete_<T = void>(
+  path: string,
+  ...middlewares: HttpMiddleware[]
+): Promise<T> {
+  return perform<T>("DELETE", path, ...middlewares)
+}
+
 async function perform<T>(
   method: string,
   path: string,

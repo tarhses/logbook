@@ -1,4 +1,4 @@
-import { body, get, param, post, put } from "@/libs/http"
+import { body, delete_, get, param, post, put } from "@/libs/http"
 import { authenticated } from "@/libs/user"
 import { Ride } from "../models/ride.model"
 
@@ -22,3 +22,6 @@ export const create = (ride: RideReq) =>
 
 export const updateById = (id: number, ride: RideReq) =>
   put<Ride>(`/api/rides/${id}`, authenticated(), body(ride))
+
+export const deleteById = (id: number) =>
+  delete_(`/api/rides/${id}`, authenticated())

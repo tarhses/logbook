@@ -6,6 +6,7 @@ import { RideItem } from "./ride-item.component"
 export const RideDate: Component<{
   date: number
   rides: Ride[]
+  onDelete: () => void
 }> = (props) => {
   return (
     <>
@@ -13,7 +14,9 @@ export const RideDate: Component<{
         <FormatDate timestamp={props.date} dateStyle="full" />
       </strong>
       <hr />
-      <For each={props.rides}>{(ride) => <RideItem ride={ride} />}</For>
+      <For each={props.rides}>
+        {(ride) => <RideItem ride={ride} onDelete={props.onDelete} />}
+      </For>
     </>
   )
 }

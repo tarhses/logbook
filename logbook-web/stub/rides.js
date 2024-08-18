@@ -88,4 +88,8 @@ export default [
       ticketControl: true,
     }),
   },
+  {
+    when: ({ endpoint }) => /DELETE \/api\/rides\/\d+/.test(endpoint),
+    then: () => ({}),
+  },
 ]
