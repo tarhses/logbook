@@ -18,7 +18,7 @@ const DAY_AS_MILLIS: i64 = 24 * 60 * 60 * 1000;
 pub fn router() -> Router<SqlitePool> {
     Router::new()
         .route("/", get(get_rides).post(post_ride))
-        .route("/:id", put(put_ride))
+        .route("/:id", put(put_ride).delete(delete_ride))
 }
 
 // GET /api/rides{?limit,offset}
@@ -54,6 +54,16 @@ async fn put_ride(
     repos::rides::update_by_id(&db, id, ride).await;
     let ride = repos::rides::get_by_id(&db, id).await;
     Json(ride)
+}
+
+// DELETE /api/rides/{id}
+async fn delete_ride(
+    _: Authenticated,
+    State(db): State<SqlitePool>,
+    Path(id): Path<i64>,
+) -> impl IntoResponse {
+    repos::rides::delete_by_id(&db, id).await;
+    StatusCode::NO_CONTENT
 }
 
 fn normalize_date(timestamp: i64) -> i64 {

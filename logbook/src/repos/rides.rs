@@ -94,6 +94,13 @@ pub async fn update_by_id(db: &SqlitePool, id: i64, ride: RideReq) {
     .unwrap();
 }
 
+pub async fn delete_by_id(db: &SqlitePool, id: i64) {
+    sqlx::query_file!("sql/rides/delete_by_id.sql", id,)
+        .execute(db)
+        .await
+        .unwrap();
+}
+
 #[cfg(test)]
 mod tests {
     use crate::repos::get_test_db;
@@ -469,5 +476,35 @@ mod tests {
         .await
         .unwrap();
         assert_eq!(records.len(), 1);
+    }
+
+    #[tokio::test]
+    async fn delete_by_id_works() {
+        let db = get_test_db().await;
+        sqlx::query!(
+            "
+            INSERT INTO station (name)
+            VALUES ('A'), ('B');
+            INSERT INTO connection (departure_id, arrival_id, departure_time, arrival_time)
+            VALUES (1, 2, 10, 20), (2, 1, 30, 40);
+            INSERT INTO ride (id, connection_id, date, delay, ticket_control)
+            VALUES (2, 1, 100, 60, FALSE);
+            "
+        )
+        .execute(&db)
+        .await
+        .unwrap();
+        delete_by_id(&db, 2).await;
+        let records = sqlx::query!(
+            "
+            SELECT *
+            FROM ride
+            WHERE id = 2;
+            "
+        )
+        .fetch_all(&db)
+        .await
+        .unwrap();
+        assert_eq!(records.len(), 0);
     }
 }
