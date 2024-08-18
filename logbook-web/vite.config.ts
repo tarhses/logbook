@@ -1,13 +1,20 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
-import cssnanoPlugin from "cssnano"
 import { fileURLToPath } from "node:url"
 import { defineConfig } from "vite"
 import solidPlugin from "vite-plugin-solid"
+// import devtools from 'solid-devtools/vite';
 
 export default defineConfig({
-  plugins: [solidPlugin()],
+  plugins: [
+    /*
+    Uncomment the following line to enable solid-devtools.
+    For more info see https://github.com/thetarnav/solid-devtools/tree/main/packages/extension#readme
+    */
+    // devtools(),
+    solidPlugin(),
+  ],
   server: {
     port: 3000,
     proxy: { "/api": "http://127.0.0.1:3001" },
@@ -15,23 +22,13 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: ["@testing-library/jest-dom/vitest.js"],
-    // otherwise, solid would be loaded twice:
-    deps: { optimizer: { web: { include: ["solid"] } } },
-    // if you have few tests, try commenting one
-    // or both out to improve performance:
-    threads: false,
+    setupFiles: ["node_modules/@testing-library/jest-dom/vitest"],
+    // if you have few tests, try commenting this
+    // out to improve performance:
     isolate: false,
   },
   build: {
     target: "esnext",
-    // we'll use cssnano instead:
-    cssMinify: false,
-  },
-  css: {
-    postcss: {
-      plugins: [cssnanoPlugin()],
-    },
   },
   resolve: {
     conditions: ["development", "browser"],
