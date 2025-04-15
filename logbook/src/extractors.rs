@@ -1,5 +1,4 @@
 use axum::{
-    async_trait,
     extract::FromRequestParts,
     http::{request::Parts, StatusCode},
 };
@@ -10,7 +9,6 @@ use crate::repos::tokens;
 
 pub struct Authenticated;
 
-#[async_trait]
 impl FromRequestParts<SqlitePool> for Authenticated {
     type Rejection = (StatusCode, &'static str);
 

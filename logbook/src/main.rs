@@ -1,22 +1,22 @@
-use std::net::SocketAddr;
-
-use axum::{Router, Server};
+use axum::Router;
 use sqlx::SqlitePool;
+use tokio::net::TcpListener;
 
+mod config;
 mod extractors;
 mod models;
 mod repos;
 mod routers;
 
-const DEFAULT_DATABASE_URL: &str = "sqlite:db.sqlite3";
-const DEFAULT_ADDRESS: &str = "127.0.0.1:80";
-
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
-    dotenvy::dotenv().ok();
+    let cfg = config::load().unwrap_or_else(|err| {
+        eprintln!("Unable to load configuration.\n{err}");
+        std::process::exit(1);
+    });
 
-    let addr = get_host();
-    let db = get_db().await;
+    let addr = cfg.address;
+    let db = SqlitePool::connect(&cfg.database).await.unwrap();
 
     let app = Router::new()
         .nest(
@@ -28,20 +28,6 @@ async fn main() {
         )
         .with_state(db);
 
-    Server::bind(&addr)
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
-}
-
-async fn get_db() -> SqlitePool {
-    let url = std::env::var("DATABASE_URL").unwrap_or_else(|_| String::from(DEFAULT_DATABASE_URL));
-    SqlitePool::connect(&url).await.unwrap()
-}
-
-fn get_host() -> SocketAddr {
-    std::env::var("ADDRESS")
-        .unwrap_or_else(|_| String::from(DEFAULT_ADDRESS))
-        .parse()
-        .unwrap()
+    let listener = TcpListener::bind(addr).await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }

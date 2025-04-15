@@ -6,14 +6,14 @@
       {
         "name": "EXISTS(\n  SELECT\n    1\n  FROM\n    `token`\n  WHERE\n    `hash` = ?1\n)",
         "ordinal": 0,
-        "type_info": "Int"
+        "type_info": "Integer"
       }
     ],
     "parameters": {
       "Right": 1
     },
     "nullable": [
-      null
+      false
     ]
   },
   "hash": "48cfeb577bfb92d4791f880acbe8d129e8f7951568a0660fc01d237f66590f95"

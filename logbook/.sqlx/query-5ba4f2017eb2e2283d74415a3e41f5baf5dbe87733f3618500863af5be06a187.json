@@ -1,10 +1,10 @@
 {
   "db_name": "SQLite",
-  "query": "SELECT\n  `connection`.`id`,\n  `connection`.`departure_time`,\n  `connection`.`arrival_time`,\n  `departure`.`id` AS `departure_id`,\n  `departure`.`name` AS `departure_name`,\n  `arrival`.`id` AS `arrival_id`,\n  `arrival`.`name` AS `arrival_name`\nFROM\n  `connection`\nJOIN\n  `station`\n  AS `departure`\n  ON `departure`.`id` = `connection`.`departure_id`\nJOIN\n  `station`\n  AS `arrival`\n  ON `arrival`.`id` = `connection`.`arrival_id`\nWHERE\n  `connection`.`id` = ?1;\n",
+  "query": "SELECT\n  `connection`.`id` AS `id!`,\n  `connection`.`departure_time`,\n  `connection`.`arrival_time`,\n  `departure`.`id` AS `departure_id!`,\n  `departure`.`name` AS `departure_name`,\n  `arrival`.`id` AS `arrival_id!`,\n  `arrival`.`name` AS `arrival_name`\nFROM\n  `connection`\nJOIN\n  `station`\n  AS `departure`\n  ON `departure`.`id` = ?1\nJOIN\n  `station`\n  AS `arrival`\n  ON `arrival`.`id` = ?2\nWHERE\n  `connection`.`departure_id` = ?1\n  AND `connection`.`arrival_id` = ?2;\n",
   "describe": {
     "columns": [
       {
-        "name": "id",
+        "name": "id!",
         "ordinal": 0,
         "type_info": "Integer"
       },
@@ -19,7 +19,7 @@
         "type_info": "Integer"
       },
       {
-        "name": "departure_id",
+        "name": "departure_id!",
         "ordinal": 3,
         "type_info": "Integer"
       },
@@ -29,7 +29,7 @@
         "type_info": "Text"
       },
       {
-        "name": "arrival_id",
+        "name": "arrival_id!",
         "ordinal": 5,
         "type_info": "Integer"
       },
@@ -40,17 +40,17 @@
       }
     ],
     "parameters": {
-      "Right": 1
+      "Right": 2
     },
     "nullable": [
+      true,
       false,
       false,
+      true,
       false,
-      false,
-      false,
-      false,
+      true,
       false
     ]
   },
-  "hash": "2523479d7023791dc3c337c451a15421dec47620b982759534b1c1e121895d48"
+  "hash": "5ba4f2017eb2e2283d74415a3e41f5baf5dbe87733f3618500863af5be06a187"
 }

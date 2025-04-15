@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM\n  `ride`\nWHERE\n  `id` = ?1;\n",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "aa2784560b2df20a794d8e99d88b2bdfb6333915a8cbcc3285636f5038fdbc99"
+}

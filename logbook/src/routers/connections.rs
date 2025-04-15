@@ -23,7 +23,7 @@ struct Ends {
 pub fn router() -> Router<SqlitePool> {
     Router::new()
         .route("/", get(get_connections).post(post_connection))
-        .route("/:id", get(get_connection).put(put_connection))
+        .route("/{id}", get(get_connection).put(put_connection))
 }
 
 // GET /api/connections/{id}

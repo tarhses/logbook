@@ -6,7 +6,7 @@ pub async fn exists(db: &SqlitePool, token: &[u8]) -> bool {
     sqlx::query_file_scalar!("sql/tokens/exists.sql", hash)
         .fetch_one(db)
         .await
-        .map(|scalar| scalar == Some(1))
+        .map(|scalar| scalar == 1)
         .unwrap()
 }
 

@@ -2,9 +2,9 @@ SELECT
   `connection`.`id` AS `id!`,
   `connection`.`departure_time`,
   `connection`.`arrival_time`,
-  `departure`.`id` AS `departure_id`,
+  `departure`.`id` AS `departure_id!`,
   `departure`.`name` AS `departure_name`,
-  `arrival`.`id` AS `arrival_id`,
+  `arrival`.`id` AS `arrival_id!`,
   `arrival`.`name` AS `arrival_name`
 FROM
   `connection`

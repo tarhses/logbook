@@ -22,7 +22,7 @@ struct Departure {
 pub fn router() -> Router<SqlitePool> {
     Router::new()
         .route("/", get(get_stations).post(post_station))
-        .route("/:id", put(put_station))
+        .route("/{id}", put(put_station))
 }
 
 // GET /api/stations

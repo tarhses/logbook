@@ -1,5 +1,5 @@
 SELECT
-  `station`.`id`,
+  `station`.`id` as `id!`,
   `station`.`name`
 FROM
   `station`

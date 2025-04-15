@@ -18,7 +18,7 @@ const DAY_AS_MILLIS: i64 = 24 * 60 * 60 * 1000;
 pub fn router() -> Router<SqlitePool> {
     Router::new()
         .route("/", get(get_rides).post(post_ride))
-        .route("/:id", put(put_ride).delete(delete_ride))
+        .route("/{id}", put(put_ride).delete(delete_ride))
 }
 
 // GET /api/rides{?limit,offset}
